@@ -41,10 +41,10 @@ func TestRedirection(t *testing.T) {
 	output := string(captureStderr(func() {
 		log.Print("Hello, log!")
 	}))
-	pattern := "W%02d%02d %02d:%02d:%02d.%06d %05d glogbidge.go:14] glogbridge_test.go:42: Hello, log!\n"
-	var month, day, hour, minute, second, micros, pid int
-	n, err := fmt.Sscanf(output, pattern, &month, &day, &hour, &minute, &second, &micros, &pid)
-	if n != 7 || err != nil {
+	pattern := "W%02d%02d %02d:%02d:%02d.%06d %05d glogbidge.go:%d] glogbridge_test.go:%d: Hello, log!\n"
+	var month, day, hour, minute, second, micros, pid, line1, line2 int
+	n, err := fmt.Sscanf(output, pattern, &month, &day, &hour, &minute, &second, &micros, &pid, &line1, &line2)
+	if n != 9 || err != nil {
 		t.Errorf("Logged line in unexpected format:\n%s", output)
 	}
 }
